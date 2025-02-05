@@ -22,5 +22,5 @@ func main() {
 	e := echo.New()
 
 	e.Logger.Fatal(e.Start(":4000"))
-	fmt.Println("Welcome to the backend, administrators")
+	fmt.Println("Welcome to the admin backend, administrators")
 }
