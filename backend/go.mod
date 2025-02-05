@@ -1,15 +1,11 @@
-module github.com/DroneBreaker/Admin-Dashboard-App
+module github.com/DroneBreaker/Admin-Dashboard-App/backend
 
 go 1.22.5
 
-// direct dependencies
-require (
-	github.com/labstack/echo/v4 v4.13.3 // direct
-	github.com/go-sql-driver/mysql v1.8.1 // direct
-)
-
 require (
 	filippo.io/edwards25519 v1.1.0 // indirect
+	github.com/go-sql-driver/mysql v1.8.1 // indirect
+	github.com/labstack/echo/v4 v4.13.3 // indirect
 	github.com/labstack/gommon v0.4.2 // indirect
 	github.com/mattn/go-colorable v0.1.13 // indirect
 	github.com/mattn/go-isatty v0.0.20 // indirect

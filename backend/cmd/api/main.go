@@ -10,16 +10,17 @@ import (
 )
 
 func main() {
-	//db connection
-	db, err := sql.Open("mysql", "drone:DroneBreaker55@tcp(localhost:3306)/droners")
+	// Db connection
+	db, err := sql.Open("mysql", "drone:DroneBreakerr55@tcp(localhost:3306)/droners")
 	if err != nil {
 		log.Fatal(err)
 	}
+
 	defer db.Close()
 
-	// initializing echo instance
+	// Initialize echo
 	e := echo.New()
 
 	e.Logger.Fatal(e.Start(":4000"))
-	fmt.Println("Hi, welcome to my backend, administrator")
+	fmt.Println("Welcome to the backend, administrators")
 }

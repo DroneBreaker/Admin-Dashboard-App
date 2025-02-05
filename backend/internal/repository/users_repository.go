@@ -1,6 +1,6 @@
 package repository
 
-import "github.com/DroneBreaker/Admin-Dashboard-App/internal/models"
+import "github.com/DroneBreaker/Admin-Dashboard-App/backend/internal/models"
 
 type UserRepository interface {
 	Create(user *models.User)
