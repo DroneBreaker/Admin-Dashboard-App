@@ -1,4 +1,4 @@
-package service
+package services
 
 import (
 	"github.com/DroneBreaker/Admin-Dashboard-App/backend/internal/models"
@@ -10,13 +10,14 @@ type UserService interface {
 	Create(user models.User) error
 	GetByID(id int) (*models.User, error)
 	GetByUsername(username string) (*models.User, error)
+	Update(user *models.User) error
 }
 
 type userService struct {
 	repo repository.UserRepository
 }
 
-func NewUserHandler(repo repository.UserRepository) UserService {
+func NewUserService(repo repository.UserRepository) UserService {
 	return &userService{repo}
 }
 
@@ -34,4 +35,8 @@ func (s *userService) GetByID(id int) (*models.User, error) {
 
 func (s *userService) GetByUsername(username string) (*models.User, error) {
 	return s.repo.GetByUsername(username)
+}
+
+func (s *userService) Update(user *models.User) error {
+	return s.repo.Update(user)
 }

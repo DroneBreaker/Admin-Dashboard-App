@@ -6,15 +6,15 @@ import (
 	"strconv"
 
 	"github.com/DroneBreaker/Admin-Dashboard-App/backend/internal/models"
-	"github.com/DroneBreaker/Admin-Dashboard-App/backend/internal/service"
+	"github.com/DroneBreaker/Admin-Dashboard-App/backend/internal/services"
 	"github.com/labstack/echo/v4"
 )
 
 type userHandler struct {
-	userService service.UserService
+	userService services.UserService
 }
 
-func NewUserHandler(userService service.UserService) *userHandler {
+func NewUserHandler(userService services.UserService) *userHandler {
 	return &userHandler{userService}
 }
 
@@ -72,6 +72,27 @@ func (h *userHandler) GetByUsername(c echo.Context) error {
 	}
 	return c.JSON(http.StatusOK, map[string]interface{}{
 		"message": "Username found successfully",
+		"user":    user,
+	})
+}
+
+func (h *userHandler) Update(c echo.Context) error {
+	id, err := strconv.Atoi(c.Param("id"))
+	if err != nil {
+		return c.JSON(http.StatusBadRequest, err.Error())
+	}
+
+	user := new(models.User)
+	if err := c.Bind(user); err != nil {
+		return c.JSON(http.StatusBadRequest, err.Error())
+	}
+	user.ID = id
+
+	if err := h.userService.Update(user); err != nil {
+		return c.JSON(http.StatusInternalServerError, err.Error())
+	}
+	return c.JSON(http.StatusOK, map[string]interface{}{
+		"message": "User updated successfully",
 		"user":    user,
 	})
 }

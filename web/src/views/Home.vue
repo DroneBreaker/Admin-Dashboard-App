@@ -1,12 +1,13 @@
 <template>
-  <div class="home">
-    <main>
-    </main>
-  </div>
+    <div>
+
+    </div>
 </template>
 
 <script setup>
-// @ is an alias to /src
-
 
 </script>
+
+<style lang="scss" scoped>
+
+</style>

@@ -1,34 +1,26 @@
 <template>
-    <button :style="{ backgroundColor: color }" class="button">
+    <button :style="{ backgroundColor: color, color: textColor }" class="px-2 p-4 w-[8rem] rounded-md mb-4">
         {{ buttonText }}
     </button>
 </template>
 
 <script setup>
-// Define props
 const props = defineProps({
     buttonText: {
         type: String,
         required: true
-    }, 
+    },
     color: {
+        type: String,
+        default: 'blue'
+    },
+    textColor: {
         type: String,
         default: 'white'
     }
 })
 </script>
 
-<style lang="css" scoped>
-button {
-    padding: 10px;
-    border: none;
-    cursor: pointer;
-    text-align: center;
-    font-size: 15px;
-    transition: background-color 0.3s ease;
-    border-radius: 10px;
-    margin-bottom: 10px;
-    width: 120px;
-    height: 45px;
-}
+<style lang="scss" scoped>
+
 </style>

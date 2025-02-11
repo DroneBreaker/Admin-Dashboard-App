@@ -4,6 +4,7 @@ import (
 	"database/sql"
 
 	"github.com/DroneBreaker/Admin-Dashboard-App/backend/internal/models"
+	"golang.org/x/crypto/bcrypt"
 )
 
 type UserRepository interface {
@@ -11,6 +12,7 @@ type UserRepository interface {
 	Create(user *models.User) error
 	GetByID(id int) (*models.User, error)
 	GetByUsername(username string) (*models.User, error)
+	Update(user *models.User) error
 }
 
 type userRepository struct {
@@ -23,7 +25,7 @@ func NewUserRepository(db *sql.DB) UserRepository {
 
 func (r *userRepository) GetAll() ([]models.User, error) {
 	users := []models.User{}
-	query := `SELECT id, firstName, lastName, username, FROM users`
+	query := `SELECT id, firstName, lastName, username, email FROM users`
 	rows, err := r.db.Query(query)
 	if err != nil {
 		return nil, err
@@ -32,7 +34,7 @@ func (r *userRepository) GetAll() ([]models.User, error) {
 
 	for rows.Next() {
 		var user models.User
-		if err := rows.Scan(&user.ID, &user.FirstName, &user.LastName, &user.Username); err != nil {
+		if err := rows.Scan(&user.ID, &user.FirstName, &user.LastName, &user.Username, &user.Email); err != nil {
 			return nil, err
 		}
 		users = append(users, user)
@@ -41,8 +43,14 @@ func (r *userRepository) GetAll() ([]models.User, error) {
 }
 
 func (r *userRepository) Create(user *models.User) error {
+	// Hash the password
+	hashedPassword, err := bcrypt.GenerateFromPassword([]byte(user.Password), bcrypt.DefaultCost)
+	if err != nil {
+		return err
+	}
+
 	query := `INSERT INTO users (id, firstName, lastName, username, email, password) VALUES (?,?,?,?,?,?)`
-	result, err := r.db.Exec(query, user.ID, user.FirstName, user.LastName, user.Username, user.Email, user.Password)
+	result, err := r.db.Exec(query, user.ID, user.FirstName, user.LastName, user.Username, user.Email, hashedPassword)
 
 	if err != nil {
 		return err
@@ -77,4 +85,11 @@ func (r *userRepository) GetByUsername(username string) (*models.User, error) {
 		return nil, err
 	}
 	return user, nil
+}
+
+func (r *userRepository) Update(user *models.User) error {
+	query := `UPDATE users SET firstName = ?, lastName = ?, username = ?, email = ? WHERE id = ?`
+	_, err := r.db.Exec(query, user.FirstName, user.LastName, user.Username, user.Email, user.ID)
+	return err
+	// fmt.Println("User updated")
 }

@@ -1,55 +1,35 @@
 <template>
-    <div>
-        <div class="login">
-            <form action="POST">
-                <h1 class="login-text">Welcome to Login</h1>
+    <div class="login pt-[13rem] mx-[35%]">
+        <form action="POST" class="bg-orange-400 pt-4 w-[27rem] h-[18rem] text-center rounded-md">
+            <h1 class="login-text text-2xl mb-4">Welcome to Login</h1>
 
-                <div>
-                    <input type="text" placeholder="Username">
-                </div>
+            <div>
+                <input class="w-[80%]" type="text" placeholder="Username">
+            </div>
 
-                <div>
-                    <input type="text" placeholder="Password">
-                </div>
+            <div>
+                <input class="w-[80%]" type="text" placeholder="Password">
+            </div>
 
-                <p></p>
+            <p></p>
 
-                <Button buttonText="Submit" />
-            </form>
-        </div>
+            <Button buttonText="Submit" color="white" textColor="black" />
+        </form>
     </div>
-</template>
-
-<script setup>
-import Button from '../components/Button';
-</script>
-
-<style lang="css" scoped>
-.login {
-    padding-top: 180px;
-    margin-left: 36%;
-    justify-content: center;
-    align-items: center;
-    height: 220px;
-    width: 360px;
-}
-
-.login-text {
-    font-size: 24px;
-}
-
-form {
-    background-color: cadetblue;
-    padding-top: 20px;
-    text-align: center;
-    border-radius: 10px;
-}
-
-input {
+  </template>
+  
+  <script setup>
+  import Button from '../components/Button.vue'
+  </script>
+  
+  <style lang="css" scoped> 
+  input {
     margin-bottom: 20px;
     border-radius: 10px;
-    height: 40px;
-    width: 250px;
+    height: 50px;
     padding-left: 20px;
-}
-</style>
+    border: 2px solid white;
+  }
+  </style>
+  
+  
